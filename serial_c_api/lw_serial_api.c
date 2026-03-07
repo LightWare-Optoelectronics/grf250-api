@@ -31,6 +31,8 @@ lw_firmware_version lw_expand_firmware_version(uint32_t version) {
 // ----------------------------------------------------------------------------
 // Packet handling.
 // ----------------------------------------------------------------------------
+#include <endian.h>
+
 uint16_t lw_create_crc(uint8_t *data, uint16_t size) {
     uint16_t crc = 0;
 
@@ -45,6 +47,8 @@ uint16_t lw_create_crc(uint8_t *data, uint16_t size) {
         code = code << 7;
         crc ^= code;
     }
+
+    crc = htole16(crc);
 
     return crc;
 }
